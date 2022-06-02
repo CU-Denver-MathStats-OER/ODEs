@@ -1,0 +1,143 @@
+%UNIT 3: AN ANALYTIC APPROACH
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Put the following at the top of each .tex file  %
+\pagestyle{fancy}
+\renewcommand{\theUnit}{4.1-4.2}
+\ifthenelse{\isundefined{\UnitPageNumbers}}{}{\setcounter{page}{1}}
+\rhead{Application  \theUnit: Population and Mixture Models}
+\lhead{\includegraphics[width=1.25cm]{IODE-logo.png}}
+\rfoot{\mypage}
+\lfoot{}
+\cfoot{}
+\fancypagestyle{firstfooter}{\footskip = 50pt}
+\renewcommand{\footrulewidth}{.4pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace*{-20pt} \thispagestyle{firstfooter}
+\pagebegin{Mixture Problems (Application 4.2)}
+
+\bbox
+A one-compartment system consists of 
+
+\bi
+\ii $x(t)$ that represents the amount of a substance (such as salt) at time $t$. 
+\ii an input rate of $x$. 
+\ii an output rate of $x$. 
+\ei
+
+\[ \frac{dx}{dt} = \mbox{input rate} - \mbox{output rate} \]
+\ebox
+
+\bb
+ \ii A brine solution of salt water that has concentration $0.05$ kg per L flows at a constant rate of 6 L per minute 
+into a tank which is initially contains 50 L of a 1\% salt solution.   The brine solution flows out  of the tank at a rate of 4 L per minute. Let $x(t)$ denote the mass of the salt in the tank at time $t$ (in minutes). \textit{Note that 1\% salt solution means 1 kg of salt per 100 L of solution.}
+
+\begin{enumerate}
+\ii What is the input rate of $x$? \vspace{0.5in}
+\ii What is the output rate of $x$?  \vspace{0.5in}
+\ii What is the initial mass of the salt in the tank?  \vspace{0.5in}
+\ii Construct an model for this initial value problem (but do not solve it).  \vspace{0.5in}
+\ii What method(s) can we apply to solve the equation in (4) (but don't solve it)? 
+\ee
+
+\ee
+%\bs \p 
+
+%Now assume at time $t=0$, the tanks springs a leak so that the outflow of water is increasing linearly over time. 
+%In particular, the outflow has increased from 6 L per min at time $t=0$ to 8 L per min at time $t=1$ minute. Adjust
+%the differential equation to account for this leak. 
+
+\clearpage
+
+\pagebegin{Population Models (Section 4.1)}
+
+\bbox
+The \alert{Malthusian} law of population growth says the rate of change of the population, $\frac{dP}{dt}$,
+is \alert{directly proportional to the population present}, $P$, at time $t$:
+\[ \frac{dP}{dt} = kP, \quad P(0)=P_0.\]
+\ebox
+
+\bs 
+
+\begin{ex}
+ Let $P$ denote the population of the world (in billions) $t$ years since $1960$. In 1960 the world's population was approximately 3 billion, and the population growth is model by
+\[ \frac{dP}{dt} =0.2P  \hspace{1in} , \ P(0)=3.\] 
+
+Solving this model gives $P(t)=3e^{0.02t}$, and predicts the population in 2019 is $9.76$ billion.  \bs
+
+\noindent \textbf{Why do you think predicted value is different from the actual value?}
+\end{ex}
+
+%In fact, this model predicts that in year 2635, the world's population will reach $1,800,000$ billion, meaning each person will have exactly 1 ft$^2$ of land to themself.
+
+\clearpage
+
+\pagebegin{The Logistic Models (Section 4.1)}
+
+\bbox
+We can construct our population model by considering::
+
+\[ \frac{dP}{dt} = \bigg( \mbox{Birth Rate} \bigg) - \bigg( \mbox{Death Rate} \bigg).\] \bs
+
+\bs
+
+Competition within the population causes the populations to decrease (disease, murder, natural disasters, war, lack of food/water). If we assume the \alert{death rate is proportional to the total number of possible two-party interactions}, we get:
+
+\[ \mbox{Death rate} = k_2 \left( \begin{array}{c} P\\ 2 \end{array} \right) = k_2 \left( \frac{P(P-1)}{2} \right) .\]
+
+Note: $\dsty \left( \begin{array}{c} P\\ 2 \end{array} \right)$ denotes ``$P$ choose 2'', and in general we have
+\[ \left( \begin{array}{c} n\\ k \end{array} \right) = \frac{n!}{k!(n-k)!}.\]
+\ebox
+
+\bs 
+
+Taking both the birth and death rates into account, we get the \alert{Logistic model} for population change which we simplify:
+
+\[ \frac{dP}{dt} = \bigg( \hspace{2in}  \bigg) - \bigg( \hspace{2in} \bigg) .\]  \bs
+
+\bb[resume]
+\ii Show that the model above can be rewritten in the form $\mathbf{\frac{dP}{dt} = -AP(P-L)}$ where $A$ and $L$ are positive constants.
+\ee
+
+\clearpage
+\pagebegin{Practice: Population Model for Rabbits}
+
+\bb[resume]
+\ii A population of rabbits changes over time $t$ (in years) according to the logistic model
+\[ \frac{dP}{dt} = 3P-\frac{1}{20}P^2 .\]
+
+\bb
+\ii For what initial population sizes $P_0$ will the population grow at first? \vspace{0.5in}
+\ii For what initial population sizes $P_0$ will the population decrease at first? \vspace{0.5in}
+\ii For what initial population sizes $P_0$ will the population never change? \vspace{0.5in}
+\ii Explain, in practical terms, why answers in (a)-(c) makes sense. \vspace{1in}
+\ii If the initial rabbit population is $P_0=P(0)=50$, find a solution to the 
+initial value problem and find a formula for the population $P$ as a function of time $t$.
+\ee
+\ee
+
+\pagebreak
+\pagebegin{Practice: Chlorine Levels in Pool}
+
+\bb[resume]
+\ii A swimming pool whose volume is 10,000 gallons contains
+water that is $0.01$\% chlorine. Starting at $t=0$, city water containing $0.001$\% chlorine
+is pumped into the pool at a rate of 5 gal/min. The pool water flows out at the same rate. Let $x$
+denote the amount of chlorine (in pounds) in the pool $t$ minutes since water has begun being
+pumped into the pool.
+
+\medskip
+
+\textit{Note that a concentration of $0.01$\% chlorine solution means $0.01$ pounds of chlorine per 100 gallons of solution.}
+
+\medskip
+
+\bb
+\ii Construct a differential equation for rate of change of the mass of chlorine (in pounds) $x$ in the pool at time $t$.  \vspace{1 in}
+\ii Solve the initial value problem using the differential equation in (a) and the given initial \% concentration. \vfill
+%\ii What is the percentage of chlorine in the pool after 1 hour? \vspace{1in}
+\ii (Bonus) When will the pool water be $0.002$\% chlorine? 
+\ee
+
+
+\ee
+

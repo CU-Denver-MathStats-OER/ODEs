@@ -1,0 +1,77 @@
+%UNIT 3: AN ANALYTIC APPROACH
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Put the following at the top of each .tex file  %
+\pagestyle{fancy}
+\renewcommand{\theUnit}{2.4}
+\ifthenelse{\isundefined{\UnitPageNumbers}}{}{\setcounter{page}{1}}
+\rhead{Section \theUnit: Mechanical Vibrations}
+\lhead{\includegraphics[width=1.25cm]{IODE-logo.png}}
+\rfoot{\mypage}
+\lfoot{}
+\cfoot{}
+\fancypagestyle{firstfooter}{\footskip = 50pt}
+\renewcommand{\footrulewidth}{.4pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace*{-20pt} \thispagestyle{firstfooter}
+
+\pagebegin{Free Damped Motion}
+\bb
+\ii Consider a mass-spring system with a mass $m=2$, spring constant $k=3$, and damping constant $b=1$.
+\bb
+\ii Set up and find a general solution to the corresponding differential equation.
+\ii Is the system underdamped, overdamped, or critically damped?
+\ii Find a value for the constant $b$ so sytem is critically damped.
+\ii What is the period of solution? How many cycles does the mass-spring complete each second?
+\ee
+
+\vfill
+
+\bbox
+For these problems we will measure quantities using the metric system:
+\bi
+\ii The overall force is measured in newtons, $N$.
+\bi
+\ii It is equal to the force that would give a mass of one kilogram an acceleration of one meter per $\mbox{sec}^2$,
+\ei
+\ii The spring constant $k$ has units of force per unit of distance. For example newtons per meter, N/m.
+\ii The damping constant is a unit of impulse per unit of distance. For example newton seconds per meter, $\mbox{N} \cdot \mbox{s}$ per meter.
+\ei
+\ebox
+
+\newpage
+
+\ii You place an object whose mass $m$ (in kg) is unknown on top of a spring and put the system in motion. You observed the mass bounce up and down. Let $y$ denote the vertical distance of the mass from its equilibrium position, with $y>0$ when the mass is stretched above the equilibrium.
+
+\bb
+\ii If we ignore friction, then the location of the mass $y$ follows the same model for the undamped free mass-spring system:
+\[ my''+ky=0.\]
+If the spring constant of the spring is $k=4 \mbox{ N/m}$, then give a solution to the initial value problem. Note your answer will depend on the mass $m$.
+\ii  If the mass bounces with a frequency of $0.8$ cycles per second, then give the value of the mass $m$.
+Note that one cycle means the mass goes from equilibrium, down, then back up, and returns to equilibrium. 
+\ee
+
+
+\newpage
+
+\ii A 5000 kg railcar hits a spring bumper at a speed of 1 meter per second, and the spring compresses by $0.1$ m. Assume no damping.
+\bb
+\ii Find the value of the spring constant $k$.
+\ii How far does the spring compress when a $10,\!000$ kg railcar hits the spring at the same speed?
+\ii If the spring would break if it compresses more than $0.3$ m, what is the maximum mass of a railcar that can hit at 1 m/s?
+\ii What is the maximum mass of a railcar that can hit the spring without breaking it at a speed of 2 m/s.
+\ee
+
+
+\newpage
+
+\pagebegin{Section 2.6: Forced Oscillations}
+
+
+\ii A water tower in an earthquake acts as a mass-spring system. Assume the the container on top is full and the water does not move around. The container is the mass, and the support is the spring. The container with the water has a mass of $10,\!000$ kg. It takes a force of 1000 newtons to displace the container 1 meter. For simplicity, we assume no friction. The earthquake induces an external force given by $F(t)=m\omega^2\cos{(\omega t)}$ where $\omega$ denotes the frequency (number of cycles per second). When the earthquake hits, the water tower is at rest.
+
+\bb
+\ii What is the natural frequency of the water tower? This means, if there is no external force (homoegenous), what is the frequency of the homogeneous solution?
+\ii If the water tower moves more than $1.5$ meters from its equilbrium resting position, the tower will collapse. Suppose an earthquake with a frequency of $0.5$ cycles per second hits, will the water tower collpase or remain standing?
+\ee
+
+\ee

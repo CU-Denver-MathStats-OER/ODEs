@@ -1,0 +1,276 @@
+%UNIT 10: SPRING MASS SYSTEM AND LINEAR SYSTEMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Put the following at the top of each .tex file  %
+\pagestyle{fancy}
+\renewcommand{\theUnit}{3.2-3.4}
+\ifthenelse{\isundefined{\UnitPageNumbers}}{}{\setcounter{page}{1}}
+\rhead{Section \theUnit: Homogeneous Linear Systems with Constant Coefficients}
+\lhead{\includegraphics[width=1.25cm]{IODE-logo.png}}
+\rfoot{\mypage}
+\lfoot{}
+\cfoot{}
+\fancypagestyle{firstfooter}{\footskip = 50pt}
+\renewcommand{\footrulewidth}{.4pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace*{-20pt} \thispagestyle{firstfooter}
+\pagebegin{Interconnected Populations}
+
+Let $x(t)$ denote the number of bacteria in a colony (labeled Colony 1) at time $t$ hours since noon. Let $y(t)$ denote the number of bacteria in a separate colony (labeled Colony 2) at time $t$ hours since noon. The size of populations $x$ and $y$ can be modeled by system of differential equations
+\begin{align*}
+\frac{dx}{dt} &= 3x \\
+\frac{dy}{dt} &= -2y
+\end{align*}
+
+\bb
+\ii Explain in practical terms how each of the populations is changing over time. Are the two populations interacting? What happens to the size of each colony in the long run?\label{13problem1}
+
+\vspace{2in}
+
+\ii Solve each of the differential equations and give general solutions for $x$ and $y$.\label{13problem2}
+
+\vfill
+
+\clearpage
+
+\ii Now imagine Colony 1 and Colony 2 are arranged such that the size of populations $x$ and $y$ can be modeled by system of differential equations \label{13problem3}
+\begin{align*}
+\frac{dx}{dt} &= 3x+10y \\
+\frac{dy}{dt} &= -2y
+\end{align*}
+
+\bb
+\ii Explain in practical terms how each of the populations is changing over time. Are the two populations interacting? What happens to the size of each colony in the long run?\label{13problem3a}
+
+\vspace{1in}
+
+\ii Notice the solution for $y$ is the same for this modified setup. Give an educated guess for the general form of the expression for the new solution for $x(t)$.\label{13problem3b}
+
+\vspace{1in}
+
+\ii Substitute your answer in \ref{13problem3b} as well as the original solution for $y(t)$ in \ref{13problem2} into the differential equation for $x$,
+\[ \frac{dx}{dt} = 3x+10y,\]
+and find the general solution for $x$.\label{13problem3c}
+
+\ee
+\ee
+
+\clearpage
+
+\pagebegin{A More General Case}
+
+If we consider a general system of differential equations of the form
+\begin{align*}
+x' &= ax+by \\
+y' &= cx+dy,
+\end{align*}
+then we can generalize our approach in the previous example by guessing solutions of the form
+\[ x(t) = C_1 e^{r_1t} + C_2 e^{r_2t} \ \ \ \ \mbox{and} \ \ \ \ y(t) = C_3e^{r_1t} + C_4 e^{r_2t}, \]
+where we note there is some dependence between constant $C_1$ and $C_3$ and constants $C_2$ and $C_4$. 
+
+\bb[resume]
+\ii Explain how we might interpret the meaning of the constants $r_1$ and $r_2$ in practical terms.\label{13problem4}
+
+\vspace{1in}
+
+\ii By plugging the guess for $x$ and $y$ into the differential equation $x'= ax+by$ you can derive two equations that the values $r_1$ and $r_2$ must satisfy. Fill in the blanks to express these two equations.\label{13problem5}
+
+\vfill
+
+\noindent $C_1r_1 = $ \rule{0.25\tw}{0.5pt} \hspace{0.5in}  $C_2r_2 = $ \rule{0.25\tw}{0.5pt}
+
+\ii Similarly, by plugging the guess for $x$ and $y$ into the differential equation $y'= cx+dy$ you can derive two equations that the values $r_1$ and $r_2$ must satisfy. Fill in the blanks to express these two equations.\label{13problem6}
+
+\vfill
+
+\noindent $C_3r_1 = $ \rule{0.25\tw}{0.5pt} \hspace{0.5in}  $C_4r_2 = $ \rule{0.25\tw}{0.5pt}
+
+\ii From \ref{13problem5} and \ref{13problem6}, we get a system of two equations that $r_1$ must simultaneously satisfy. Write the resulting system of two equations below.\label{13problem7}
+
+\vspace{0.75in}
+
+\ee
+
+
+
+\clearpage
+
+\pagebegin{Section 3.2: Essentials of Linear Algebra}
+
+An $m \times n$ \textbf{matrix} is a rectangular array of numbers with $m$ rows and $n$ columns. For example
+\[ \left[ \begin{array}{ccc} 3 & -2 & 7 \\ -12 & 0 & 5 \end{array} \right] \]
+is a 2 by 3 matrix.
+
+We can multiple a scalar (a regular number) and a matrix by simply multiplying each value in the matrix by the scalar. For example:
+\[  2 \left[ \begin{array}{ccc} 3 & -2 & 7 \\ -12 & 0 & 5 \end{array} \right] = \left[ \begin{array}{ccc} 6 & -4 & 14 \\ -24 & 0 & 10 \end{array} \right] \ \ \ \ \mbox{and} \ \ \
+\lambda  \left[ \begin{array}{c} C_1 \\ C_3   \end{array} \right] =  \left[ \begin{array}{c} \lambda C_1 \\ \lambda C_3   \end{array} \right]. \] 
+
+We can add two $m$ by $n$ matrices $A$ and $B$ by adding values in the same row and column, for example
+\[ \left[ \begin{array}{ccc} 3 & -2 & 7 \\ -12 & 0 & 5 \end{array} \right] + \left[ \begin{array}{ccc} 0 & 2 & -4 \\ 10 & -3 & 4 \end{array} \right]
+=  \left[ \begin{array}{ccc} 3 & 0 & 3 \\ -2 & -3 & 9 \end{array} \right]. \]
+Note as a result of this definition we cannot add two matrices if they have different dimensions.
+
+Multiplication of two matrices is a little more complicated. Let $\mathbf{A}$ denote an $m$ by $n$ matrix and $\mathbf{B}$ denote an $n$ by $p$ matrix, then we have
+\[ \mathbf{AB} = \left[ \begin{array}{cccc} \mathbf{a_{11}} & \mathbf{a_{12}} & \ldots & \mathbf{a_{1n}} \\
+a_{21} & a_{22} & \ldots & a_{2n} \\
+\vdots & \vdots & & \vdots \\
+a_{m1} & a_{m2} & \mathbf{\ldots} & a_{mn} \end{array} \right]
+\left[ \begin{array}{cccc} 
+b_{11} & \mathbf{b_{12}} & \ldots & b_{1p} \\
+b_{21} & \mathbf{b_{22}} & \ldots & b_{2p} \\
+\vdots & \mathbf{ \vdots } & & \vdots \\
+b_{n1} & \mathbf{b_{n2}} & \ldots & b_{np} \end{array} \right] =
+\left[ \begin{array}{cccc} 
+c_{11} & \mathbf{c_{12}} & \ldots & c_{1p} \\
+c_{21} & c_{22} & \ldots & c_{2p} \\
+\vdots & \vdots & & \vdots \\
+c_{m1} & c_{m2} & \ldots & b_{mp} \end{array} \right] \]
+where entry $c_{ij}$ in the $i^{\mbox{th}}$ row and $j^{\mbox{th}}$ column of the product is found by
+multiplying and adding entries of the $i^{\mbox{th}}$ row of $\mathbf{A}$ and the $j^{\mbox{th}}$ column
+of $\mathbf{B}$ as follows:
+\[ c_{ij} = a_{i1}b_{1j} + a_{i2}b_{2j} + \ldots + a_{in}b_{nj} = \sum_{k = 1}^n a_{ik}b_{kj}.\]
+Note that as a result of this definition $\mathbf{AB}$ is only defined if the number of columns of $\mathbf{A}$ matches
+the number of rows of $\mathbf{B}$.
+
+\clearpage
+
+\bb[resume]
+\ii Compute the product $\mathbf{AB}$ for the matrices:\label{13problem8}
+\bb
+\ii \[ \mathbf{A} =  \left[ \begin{array}{ccc} 3 & 2 & -1  \\ -7 & 0 & 5 \end{array} \right] \ \ \ \mbox{and} \ \ \
+ \mathbf{B} = \left[ \begin{array}{c} 1 \\ 2 \\ -1  \end{array} \right] \]
+\vfill
+
+\ii 
+\[ \mathbf{A} =  \left[ \begin{array}{cc} a & b  \\ c & d \end{array} \right] \ \ \ \mbox{and} \ \ \ 
+ \mathbf{B} = \left[ \begin{array}{c} C_1 \\ C_3   \end{array} \right] \]
+\vfill
+\ee
+\ee
+
+Some important terminology when working with matrices:
+\bi
+\ii A matrix that has only one column is often called a \textbf{column vector}.
+\ii A column vector that is a column of all zeros is called the \textbf{zero vector} and denoted $\mathbf{0}$ or $\vec{0}$ in order to distinguish itself from the scalar value 0.
+\ii An $n \times n$ matrix is called a \textbf{square matrix}.
+%\ii An \textbf{identify matrix} is an $n \times n$ matrix which has all diagonal entries equal to 1 and off diagonal entries equal to 0. It is often denoted $\mathbf{I}$ or $\mathbf{I}_n$ to indicate the size of the matrix.
+\ei
+
+\bb[resume]
+\ii Give the matrix $\mathbf{A}$ such that the system of equations for $r_1$ in \ref{13problem7} can be written in matrix form as \label{13problem9}
+\[ \mathbf{A}  \left[ \begin{array}{c} C_1 \\ C_3   \end{array} \right] = r_1  \left[ \begin{array}{c} C_1 \\ C_3   \end{array} \right].\]
+\vfill
+
+\clearpage
+
+\pagebegin{Section 3.3: Expressing Systems in Matrix Form}
+
+\ii Let $\mathbf{x'}$ denote a column vector of derivatives such as
+\[ \mathbf{x'} =  \left[ \begin{array}{c} \frac{dx_1}{dt} \\ \frac{dx_2}{dt} \\ \frac{dx_3}{dt}  \end{array} \right] . \]
+Give the matrix $\mathbf{A}$ such that the system of differential equations below can be written in the form $\mathbf{x'} = \mathbf{A} \mathbf{x}$.\label{13problem10}
+
+\ms
+
+$\dsty \begin{array}{rl}
+\frac{dx_1}{dt} &= 4 x_1 + 7 x_2 - x_3 \\
+\frac{dx_2}{dt} &= -2x_1-11x_3\\
+\frac{dx_3}{dt} &= 8x_3-x_2
+\end{array}$ \vfill
+
+
+
+\ii Express the system below in matrix form.\label{13problem11}
+
+$\dsty \begin{array}{rl}
+x' &= \cos{(2t)}x + \sin{(2t)}z\\
+y' &= e^ty \\
+z' &= \sin{(2t)}x + \cos{(2t)}z
+\end{array}$ \vfill
+\ee
+
+
+\pagebegin{Section 3.4: Eigenvalues of a $2 \times 2$ Matrix}
+
+We say a scalar $\lambda$ is an \textbf{eigenvalue} of a square matrix $\mathbf{A}$ if there exists a nonzero vector $\mathbf{v}$ such that $\mathbf{Av} = \lambda \mathbf{v}$. The eigenvalues of matrix have many useful applications and interpretations. We will see in the context of differential equations, they can tell us very important information about how the solutions behave.
+
+We will mostly be working with a system of two differential equations, so it will suffice to restrict our attention to the case where $\mathbf{A}$ is a $2 \times 2$ matrix, but the discussion below can be generalized to deal with much larger systems. In the $2 \times 2$ case, $\lambda$ is an eigenvalue of $\mathbf{A}$ if there exists a nonzero vector $\mathbf{v}$ such that 
+
+\begin{align*}
+\lambda \mathbf{v} &= \left[ \begin{array}{cc} a & b  \\ c & d \end{array} \right]  \mathbf{v} \\
+ \textbf{0} &= \left[ \begin{array}{cc} a & b  \\ c & d \end{array} \right]  \mathbf{v} - \lambda \mathbf{v} \\
+ \textbf{0} &= \left[ \begin{array}{cc} a & b  \\ c & d \end{array} \right]  \mathbf{v} - \left[ \begin{array}{cc} \lambda & 0  \\ 0 & \lambda \end{array} \right]  \mathbf{v} \\
+ \textbf{0} &= \left[ \begin{array}{cc} a-\lambda & b  \\ c & d-\lambda \end{array} \right] \mathbf{v} 
+ \end{align*}
+ 
+Using linear algebra, we can show that $\lambda$ is an eigenvalue of $\mathbf{A}$ if and only if
+\[ \mbox{det} \left(  \left[ \begin{array}{cc} a-\lambda & b  \\ c & d-\lambda \end{array} \right]  \right) = (a-\lambda)(d-\lambda) - bc = 0.\]
+Note the resulting quadratic equation (in $\lambda$) is called the \textbf{characteristic equation} for $\mathbf{A}$.
+
+\clearpage
+
+\bb[resume]
+\ii  Recall the model for bacteria populations $x$ and $y$ in Colony 1 and Colony 2 in problem  \ref{13problem3}. Follow the steps
+below to find general solutions to the system \label{13problem12}
+\begin{align*}
+\frac{dx}{dt} &= 3x+10y \\
+\frac{dy}{dt} &= -2y.
+\end{align*}
+\ee
+
+
+\begin{center} \renewcommand{\arraystretch}{1.5}
+\newcolumntype{V}{>{\centering\arraybackslash} m{.5\linewidth} }
+\begin{tabular}{|p{2in}|V|}
+\hline
+Write the system in matrix\newline
+form and identify the matrix $\mathbf{A}$. & {} \\
+{} & {} \\
+{} & {} \\
+\hline
+Determine the characteristic equation. &
+{} \\
+{} & {} \\
+{} & {} \\
+\hline
+Solve the characteristic equation. &
+{} \\
+{} & {} \\
+{} & {} \\
+{} & {} \\
+\hline
+Give a general solution for $x(t)$. &
+{} \\
+{} & {} \\
+{} & {} \\
+\hline
+Plug your solution for $x(t)$\newline
+into the differential equation \newline
+$x'$ and solve for $y(t)$. &
+{} \\
+{} & {} \\
+{} & {} \\
+{} & {} \\
+{} & {} \\
+{} & {} \\
+ {} & {} \\
+\hline
+\end{tabular} \end{center}
+
+\clearpage
+
+\pagebegin{Practice}
+\bb[resume]
+
+\ii Find a general solution to the system of differential equations.
+
+\bb
+\ii $\dsty \begin{array}{l} x'=-\frac{20}{9}x-\frac{8}{9}y\\ y'=-\frac{4}{9}x-\frac{34}{9}y\end{array}$ \vfill %real -4 and -2 with v1=<1,2> and v2 = <-4,1>
+\ii $\dsty \begin{array}{l} x'=x-y\\ y'=2x-y\end{array}$ \vfill %Pure imag with \pm i with v1=<1+i,2> and v2=<1-i,2>
+\clearpage
+\ii $\dsty \begin{array}{l}x'=12x-3y\\y'=3x+6y \end{array}$  \vfill %Repeated 9 v=<1,1>
+\ii $\dsty \begin{array}{l} x' =4x+5y\\y'=-x+2y \end{array}$ \vfill %Imag with 3 \pm 2i and v1=<-1-2i,1> and v2=<-1+2i,1>
+\clearpage
+\ii $\dsty \begin{array}{l} x'=4x+21y\\y'=-2x-8y\end{array}$ \vfill %Imag with -2 \pm i\sqrt{6} and v1=<-6-i\sqrt{6},1> and v2=<-6+i\sqrt{6},1>
+\ii $\dsty \begin{array}{l} x'=2x+2y\\y'=x+3y \end{array}$ \vfill %real 4 and 1 with v1=<1,1> and v2=<-2,1>%\
+
+\ee
+\ee
