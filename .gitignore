@@ -1,1 +1,6 @@
+*.aux
+*.DS_Store
+*.log
+*.tex~
+*.pdf
 **/.ipynb_checkpoints/**
