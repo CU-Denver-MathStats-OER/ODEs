@@ -4,3 +4,4 @@
 *.tex~
 *.pdf
 **/.ipynb_checkpoints/**
+*.out
