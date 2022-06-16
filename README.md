@@ -10,7 +10,7 @@ This material serves as the textbook for the "MATH 3200: Elementary Differential
 
 - Chp1Sec0.ipynb - Overview
 - Chp1Sec1.ipynb - What is a differential Equation?
-- Chp1Sec2.ipynb - Slope Fiels
+- Chp1Sec2.ipynb - Slope Fields
 - Chp1Sec3.ipynb - Phase Line
 - Chp1Sec4.ipynb - Euler's Method
 - Chp1Sec5.ipynb - Separable Differential Equations

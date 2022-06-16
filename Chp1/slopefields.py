@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # Test function
 def slope_field(ax, t, x, fxt, 
-                param_dict={'angles':'xy', 'scale_units':'xy', 'scale':2, 'headlength':0, 'headwidth':1}):
+                param_dict={'angles':'xy', 'units':'xy', 'width':0.08}):
     """Plots slope field given an ode
     
     Given an ode of the form: dx/dt = f(x, t), plot a slope field (aka direction field) for given t and x arrays. 
