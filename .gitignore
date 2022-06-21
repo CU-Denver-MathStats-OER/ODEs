@@ -5,3 +5,4 @@
 *.pdf
 **/.ipynb_checkpoints/**
 *.out
+__pycache__/
