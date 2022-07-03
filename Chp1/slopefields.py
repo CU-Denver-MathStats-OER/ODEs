@@ -2,9 +2,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Test function
-def slope_field(ax, t, x, fxt, 
-                param_dict={'angles':'xy', 'units':'xy', 'width':0.08}):
+def slope_field(t, x, diffeq, 
+                units = 'xy', 
+                angles = 'xy', 
+                width = .08, 
+                color = 'black',
+                ax = None):
     """Plots slope field given an ode
     
     Given an ode of the form: dx/dt = f(x, t), plot a slope field (aka direction field) for given t and x arrays. 
@@ -12,38 +15,37 @@ def slope_field(ax, t, x, fxt,
 
     Parameters
     ----------
-    ax: Axes
-        The axes to draw to
-        
+    
     t : array
         The time data range
         
     x : array
         The x data range
     
-    fxt : function
+    diffeq : function
         The function f(x,t) = dx/dt
     
-    param_dict: dict
-        Dictionary of keyword arguments to pass to ax.plot. Default values chosen to match typical slope field aesthetic
+    Additional arguments are aesthetic choices passed to pyplot.quiver function
+    
+    ax : pyplot plotting axes
+        Optional existing axis to pass to function
 
     Returns
     -------
-    out : list
-        a list of artists added
+    out : ax
+        plotting axis with formatted quiver plot
     """
+    if (ax is None):
+        fig, ax = plt.subplots()
+    T, X = np.meshgrid(t, x)  # create rectangular grid with points
+    slopes = diffeq(X, T)
+    dt = np.ones(slopes.shape)  # dt = an array of 1's with same dimension as diffeq
+    dxu = slopes / np.sqrt(dt**2 + slopes**2)  # normalize dx
+    dtu = dt / np.sqrt(dt**2 + slopes**2)  # normalize dt
+    ax.quiver(T, X, dtu, dxu,  # Plot a 2D field of arrows
+               units = units,  
+               angles = angles,  # each arrow has direction from (t,x) to (t+dt, x+dx)
+               width = width,  # sets the width of each arrow from user inputs
+               color = color)  # sets the color of each arrow from user inputs
     
-    # Create Grid of Points
-    T, X = np.meshgrid(t,x)
-    
-    # Calculate slopes for given array values
-    dXdT = fxt(T,X)
-    U = (1/(1+dXdT**2)**.5)*np.ones(T.shape)
-    V = (1/(1+dXdT**2)**.5)*dXdT
-    
-    out = ax.quiver(T, X, U, V, **param_dict)
-    ax.set_title('Slope Field')
-    ax.set_xlabel('Time')
-    ax.set_ylabel('X')
-    
-    return out
+    return ax
