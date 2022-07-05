@@ -17,13 +17,13 @@ def slope_field(t, x, diffeq,
     ----------
     
     t : array
-        The time data range
+        The independent variable range
         
     x : array
-        The x data range
+        The dependent variable range
     
     diffeq : function
-        The function f(x,t) = dx/dt
+        The function f(t,x) = dx/dt
     
     Additional arguments are aesthetic choices passed to pyplot.quiver function
     
