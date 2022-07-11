@@ -7,7 +7,8 @@ def slope_field(t, x, diffeq,
                 angles = 'xy', 
                 width = .08, 
                 color = 'black',
-                ax = None):
+                ax = None,
+                **args):
     """Plots slope field given an ode
     
     Given an ode of the form: dx/dt = f(x, t), plot a slope field (aka direction field) for given t and x arrays. 
@@ -24,8 +25,9 @@ def slope_field(t, x, diffeq,
     
     diffeq : function
         The function f(t,x) = dx/dt
-    
-    Additional arguments are aesthetic choices passed to pyplot.quiver function
+
+    args:
+        Additional arguments are aesthetic choices passed to pyplot.quiver function
     
     ax : pyplot plotting axes
         Optional existing axis to pass to function
@@ -46,6 +48,7 @@ def slope_field(t, x, diffeq,
                units = units,  
                angles = angles,  # each arrow has direction from (t,x) to (t+dt, x+dx)
                width = width,  # sets the width of each arrow from user inputs
-               color = color)  # sets the color of each arrow from user inputs
+               color = color,
+               **args)  # sets the color of each arrow from user inputs
     
     return ax
