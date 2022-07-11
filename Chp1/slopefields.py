@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 
 def slope_field(t, x, diffeq, 
                 units = 'xy', 
-                angles = 'xy', 
-                width = .08, 
+                angles = 'xy',
+                scale_units = 'x',
+                scale = None, 
                 color = 'black',
                 ax = None,
                 **args):
@@ -39,6 +40,8 @@ def slope_field(t, x, diffeq,
     """
     if (ax is None):
         fig, ax = plt.subplots()
+    if scale is not None:
+        scale = 1/scale
     T, X = np.meshgrid(t, x)  # create rectangular grid with points
     slopes = diffeq(X, T)
     dt = np.ones(slopes.shape)  # dt = an array of 1's with same dimension as diffeq
@@ -47,7 +50,8 @@ def slope_field(t, x, diffeq,
     ax.quiver(T, X, dtu, dxu,  # Plot a 2D field of arrows
                units = units,  
                angles = angles,  # each arrow has direction from (t,x) to (t+dt, x+dx)
-               width = width,  # sets the width of each arrow from user inputs
+               scale_units = 'x',
+               scale = scale,  # sets the length of each arrow from user inputs
                color = color,
                **args)  # sets the color of each arrow from user inputs
     
