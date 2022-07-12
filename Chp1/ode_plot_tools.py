@@ -2,6 +2,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.integrate import odeint
 
 def slope_field(t, x, diffeq, 
                 units = 'xy', 
@@ -59,8 +60,8 @@ def slope_field(t, x, diffeq,
     return ax
 
 
-# Plot Slope field and solution given analytical solution
-def plot_sol(t, x, diffeq, sol, initial, npts=100, clear=False):
+# Plot Slope field and solution estimated with `odeint`
+def plot_sol(t, x, diffeq, x0, npts=100, clear=False):
     fig, ax = plt.subplots(1,1)
     if clear:
         plt.clf()
@@ -69,12 +70,11 @@ def plot_sol(t, x, diffeq, sol, initial, npts=100, clear=False):
     # Set up phase line
     phase_line = np.zeros(len(t))
     # Initialize
-    phase_line[0]=initial
+    phase_line[0]=x0
 
-    x0=initial
     tt = np.linspace(t.min(),t.max(),100)
-    ax.plot(0, sol(tt[0], x0, x0), 'bo', label='Initial Conditions: $x_0=$'+str(x0))
-    ax.plot(tt, sol(tt, x, x0), 'b')
+    sol = odeint(diffeq, x0, tt)
+    ax.plot(tt, sol, label='Initial Conditions: $x_0=$'+str(x0))
     ax.legend(loc=1)
     
     plt.show()
