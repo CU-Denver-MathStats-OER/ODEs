@@ -60,7 +60,7 @@ def slope_field(t, x, diffeq,
 
 
 # Plot Slope field and solution given analytical solution
-def plot_sol(t, x, diffeq, sol, initial, npts=100, clear=True):
+def plot_sol(t, x, diffeq, sol, initial, npts=100, clear=False):
     fig, ax = plt.subplots(1,1)
     if clear:
         plt.clf()
@@ -81,7 +81,7 @@ def plot_sol(t, x, diffeq, sol, initial, npts=100, clear=True):
     
     
 # Plot Slope field and solution given analytical solution
-def plot_dt(t, x, diffeq, xcoord, ycoord, dt, npts=100, clear=True):
+def plot_dt(t, x, diffeq, xcoord, ycoord, dt, npts=100, clear=False):
     fig, ax = plt.subplots(1,1)
     if clear:
         plt.clf()
