@@ -117,12 +117,12 @@ def plot_euler(t, x, diffeq, initial, t_f, sol, dt, ax, clear=False):
 
     # Plot exact
     tt = np.linspace(t.min(),t.max(),100)
-    ax.plot(0, sol(tt[0], initial, initial), 'bo')
-    ax.plot(tt, sol(tt, x, initial), 'b')
+    ax.plot(0, sol(tt[0], initial, initial), 'o')
+    ax.plot(tt, sol(tt, x, initial), '')
     
     # Plot approx
     n = int(t_f/dt)
     tt2 = np.linspace(t[0], t_f, n+1)
-    ax.plot(tt2, forward_euler(diffeq, dt, n, t[0], initial), 'r:', 
+    ax.plot(tt2, forward_euler(diffeq, dt, n, t[0], initial), ':', 
              marker='s')
     plt.show()
