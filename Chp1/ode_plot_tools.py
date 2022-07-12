@@ -81,18 +81,18 @@ def plot_sol(t, x, diffeq, sol, initial, npts=100, clear=False):
     
     
 # Plot Slope field and solution given analytical solution
-def plot_dt(t, x, diffeq, xcoord, ycoord, dt, npts=100, clear=False):
+def plot_dt(t, x, diffeq, t0, x0, dt, npts=100, clear=False):
     fig, ax = plt.subplots(1,1)
     if clear:
         plt.clf()
     slope_field(t, x, diffeq, color='grey', ax = ax)
 
-    dt_slope = diffeq(xcoord,ycoord)
-    ax.plot(xcoord, ycoord, 'bo')
+    dt_slope = diffeq(t0,x0)
+    ax.plot(t0, x0, 'o')
     
     # Plot vector
     # scale=1/dt makes the vector 
-    slope_field(xcoord, ycoord, diffeq, scale=dt, color='blue', ax = ax)   
+    slope_field(t0, x0, diffeq, scale=dt, color='blue', ax = ax)   
     
     plt.show()
     
