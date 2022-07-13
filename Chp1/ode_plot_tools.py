@@ -72,7 +72,7 @@ def plot_sol(t, x, diffeq, x0, npts=100, clear=False):
     # Initialize
     phase_line[0]=x0
 
-    tt = np.linspace(t.min(),t.max(),100)
+    tt = np.linspace(t.min(),t.max(), npts)
     sol = odeint(diffeq, x0, tt)
     ax.plot(tt, sol, label='Initial Conditions: $x_0=$'+str(x0))
     ax.legend(loc=1)
