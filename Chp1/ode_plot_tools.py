@@ -99,16 +99,17 @@ def plot_dt(t, x, diffeq, t0, x0, dt, npts=100, clear=False):
 
 # Euler Methods
 def forward_euler(f, Delta_t, n, start_t, y_0):
-    # Assuming f is passed as a function of (t,y)
+    # Assuming f is passed as a function of (y, t)
     v = np.zeros(n+1)  # set each y_i by 0 at first
     v[0] = y_0  # set first value to y_0
     
     for i in range(0, n):
-        v[i+1] = v[i] + Delta_t * f(start_t + i*Delta_t, v[i])  # Euler's method formula
+        v[i+1] = v[i] + Delta_t * f(v[i], start_t + i*Delta_t)  # Euler's method formula
     return v
 
+
 # Plot Slope field and solution given analytical solution
-def plot_euler(t, x, diffeq, initial, t_f, sol, dt, ax, clear=False):
+def plot_euler(t, x, diffeq, x0, dt, ax, clear=False):
     
     if clear:
         ax.cla()
@@ -117,12 +118,16 @@ def plot_euler(t, x, diffeq, initial, t_f, sol, dt, ax, clear=False):
 
     # Plot exact
     tt = np.linspace(t.min(),t.max(),100)
-    ax.plot(0, sol(tt[0], initial, initial), 'o')
-    ax.plot(tt, sol(tt, x, initial), '')
+    sol = odeint(diffeq, x0, tt)
+    ax.plot(tt, sol)
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
     
     # Plot approx
-    n = int(t_f/dt)
-    tt2 = np.linspace(t[0], t_f, n+1)
-    ax.plot(tt2, forward_euler(diffeq, dt, n, t[0], initial), ':', 
+    n = int(t[-1]/dt)
+    tt2 = np.linspace(t[0], t[-1], n+1)
+    ax.plot(tt2, forward_euler(diffeq, dt, n, t[0], x0), ':', 
              marker='s')
+    ax.set_ylim(ylim)
+    ax.set_xlim(xlim)
     plt.show()
