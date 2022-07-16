@@ -121,17 +121,22 @@ def plot_dt(t, x, diffeq, t0, x0, dt, nsteps, npts=100, clear=False):
     if clear:
         ax.cla()
     slope_field(t, x, diffeq, color='grey', ax = ax)
-
-    dt_slope = diffeq(t0,x0)
-    ax.plot(t0, x0, 'o')
+    
+    # Store limits to keep approx from changing
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
     
     # Plot vector
     # scale=1/dt makes the vector 
-    xx = np.linspace(x0, x0+dt*nsteps, nsteps)
-    yy = forward_euler(diffeq, dt, nsteps, t[0], x0)
+    tt = np.linspace(t0, t0+dt*(nsteps-1), nsteps)
+    xx = forward_euler(diffeq, dt, nsteps, t[0], x0)
     
-    slope_field(xx, yy, diffeq, scale=dt, ax = ax)   
+    # slope_field(t0, x0, diffeq, scale=dt, ax = ax)  
+    for i in range(0, nsteps):
+        slope_field(tt[i], xx[i], diffeq, scale=dt, ax = ax)  
     
+    ax.set_ylim(ylim)
+    ax.set_xlim(xlim)
     plt.show()
     
 
@@ -158,6 +163,8 @@ def plot_euler(t, x, diffeq, x0, dt, ax, clear=False):
     tt = np.linspace(t.min(),t.max(),100)
     sol = odeint(diffeq, x0, tt)
     ax.plot(tt, sol)
+    
+    # Store limits to keep approx from changing
     xlim = ax.get_xlim()
     ylim = ax.get_ylim()
     
