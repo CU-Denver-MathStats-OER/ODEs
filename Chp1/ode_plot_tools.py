@@ -2,6 +2,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.integrate import odeint
 
 def slope_field(t, x, diffeq, 
                 units = 'xy', 
@@ -59,8 +60,8 @@ def slope_field(t, x, diffeq,
     return ax
 
 
-# Plot Slope field and solution given analytical solution
-def plot_sol(t, x, diffeq, sol, initial, npts=100, clear=True):
+# Plot Slope field and solution estimated with `odeint`
+def plot_sol(t, x, diffeq, x0, npts=100, clear=False):
     fig, ax = plt.subplots(1,1)
     if clear:
         plt.clf()
@@ -69,46 +70,46 @@ def plot_sol(t, x, diffeq, sol, initial, npts=100, clear=True):
     # Set up phase line
     phase_line = np.zeros(len(t))
     # Initialize
-    phase_line[0]=initial
+    phase_line[0]=x0
 
-    x0=initial
-    tt = np.linspace(t.min(),t.max(),100)
-    ax.plot(0, sol(tt[0], x0, x0), 'bo', label='Initial Conditions: $x_0=$'+str(x0))
-    ax.plot(tt, sol(tt, x, x0), 'b')
+    tt = np.linspace(t.min(),t.max(), npts)
+    sol = odeint(diffeq, x0, tt)
+    ax.plot(tt, sol, label='Initial Conditions: $x_0=$'+str(x0))
     ax.legend(loc=1)
     
     plt.show()
     
     
 # Plot Slope field and solution given analytical solution
-def plot_dt(t, x, diffeq, xcoord, ycoord, dt, npts=100, clear=True):
+def plot_dt(t, x, diffeq, t0, x0, dt, npts=100, clear=False):
     fig, ax = plt.subplots(1,1)
     if clear:
         plt.clf()
     slope_field(t, x, diffeq, color='grey', ax = ax)
 
-    dt_slope = diffeq(xcoord,ycoord)
-    ax.plot(xcoord, ycoord, 'bo')
+    dt_slope = diffeq(t0,x0)
+    ax.plot(t0, x0, 'o')
     
     # Plot vector
     # scale=1/dt makes the vector 
-    slope_field(xcoord, ycoord, diffeq, scale=dt, color='blue', ax = ax)   
+    slope_field(t0, x0, diffeq, scale=dt, color='blue', ax = ax)   
     
     plt.show()
     
 
 # Euler Methods
 def forward_euler(f, Delta_t, n, start_t, y_0):
-    # Assuming f is passed as a function of (t,y)
+    # Assuming f is passed as a function of (y, t)
     v = np.zeros(n+1)  # set each y_i by 0 at first
     v[0] = y_0  # set first value to y_0
     
     for i in range(0, n):
-        v[i+1] = v[i] + Delta_t * f(start_t + i*Delta_t, v[i])  # Euler's method formula
+        v[i+1] = v[i] + Delta_t * f(v[i], start_t + i*Delta_t)  # Euler's method formula
     return v
 
+
 # Plot Slope field and solution given analytical solution
-def plot_euler(t, x, diffeq, initial, t_f, sol, dt, ax, clear=False):
+def plot_euler(t, x, diffeq, x0, dt, ax, clear=False):
     
     if clear:
         ax.cla()
@@ -117,12 +118,16 @@ def plot_euler(t, x, diffeq, initial, t_f, sol, dt, ax, clear=False):
 
     # Plot exact
     tt = np.linspace(t.min(),t.max(),100)
-    ax.plot(0, sol(tt[0], initial, initial), 'o')
-    ax.plot(tt, sol(tt, x, initial), '')
+    sol = odeint(diffeq, x0, tt)
+    ax.plot(tt, sol)
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
     
     # Plot approx
-    n = int(t_f/dt)
-    tt2 = np.linspace(t[0], t_f, n+1)
-    ax.plot(tt2, forward_euler(diffeq, dt, n, t[0], initial), ':', 
+    n = int(t[-1]/dt)
+    tt2 = np.linspace(t[0], t[-1], n+1)
+    ax.plot(tt2, forward_euler(diffeq, dt, n, t[0], x0), ':', 
              marker='s')
+    ax.set_ylim(ylim)
+    ax.set_xlim(xlim)
     plt.show()
