@@ -60,40 +60,83 @@ def slope_field(t, x, diffeq,
     return ax
 
 
-# Plot Slope field and solution estimated with `odeint`
-def plot_sol(t, x, diffeq, x0, npts=100, clear=False):
-    fig, ax = plt.subplots(1,1)
-    if clear:
-        plt.clf()
-    slope_field(t, x, diffeq, width=.1, ax = ax)
+def plot_sol(t, x, diffeq, x0, ax, npts=100, clear=False):
+    """Plot Slope field and estimated solution given initial conidtion
     
-    # Set up phase line
-    phase_line = np.zeros(len(t))
-    # Initialize
-    phase_line[0]=x0
+    Given an ode of the form: dx/dt = f(x, t), plot a slope field (aka direction field) for given t and x arrays. 
+    Given an initial condition x0, plot a solution line estimated with `odeint`.
+    Extra arguments are passed to matplotlib.pyplot.quiver
 
-    tt = np.linspace(t.min(),t.max(), npts)
+    Parameters
+    ----------
+    
+    t : array
+        The independent variable range
+        
+    x : array
+        The dependent variable range
+    
+    diffeq : function
+        The function f(t,x) = dx/dt
+
+    x0 : float
+        Initial condition
+        
+    ax : pyplot plotting axes
+    
+    args:
+        Additional arguments are aesthetic choices passed to pyplot.quiver function
+    
+
+    Returns
+    -------
+    out : ax
+        plotting axis with formatted quiver plot
+    """
+    
+    if clear:
+        ax.cla()
+
+    slope_field(t, x, diffeq, color='grey', ax = ax)
+    
+    # xlim = ax.get_xlim()
+    # ylim = ax.get_ylim()
+    
+    # Plot solution
+    tt = np.linspace(t.min(),t.max(),100)
     sol = odeint(diffeq, x0, tt)
-    ax.plot(tt, sol, label='Initial Conditions: $x_0=$'+str(x0))
-    ax.legend(loc=1)
+    ax.plot(tt, sol)
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
+    
+    # ax.set_ylim(ylim)
+    # ax.set_xlim(xlim)
     
     plt.show()
     
     
 # Plot Slope field and solution given analytical solution
-def plot_dt(t, x, diffeq, t0, x0, dt, npts=100, clear=False):
+def plot_dt(t, x, diffeq, t0, x0, dt, nsteps, npts=100, clear=False):
     fig, ax = plt.subplots(1,1)
     if clear:
-        plt.clf()
+        ax.cla()
     slope_field(t, x, diffeq, color='grey', ax = ax)
-
-    dt_slope = diffeq(t0,x0)
-    ax.plot(t0, x0, 'o')
+    
+    # Store limits to keep approx from changing
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
     
     # Plot vector
     # scale=1/dt makes the vector 
-    slope_field(t0, x0, diffeq, scale=dt, color='blue', ax = ax)   
+    tt = np.linspace(t0, t0+dt*(nsteps-1), nsteps)
+    xx = forward_euler(diffeq, dt, nsteps, t[0], x0)
     
+    # slope_field(t0, x0, diffeq, scale=dt, ax = ax)  
+    for i in range(0, nsteps):
+        slope_field(tt[i], xx[i], diffeq, scale=dt, ax = ax)  
+    
+    ax.set_ylim(ylim)
+    ax.set_xlim(xlim)
     plt.show()
     
 
@@ -120,6 +163,8 @@ def plot_euler(t, x, diffeq, x0, dt, ax, clear=False):
     tt = np.linspace(t.min(),t.max(),100)
     sol = odeint(diffeq, x0, tt)
     ax.plot(tt, sol)
+    
+    # Store limits to keep approx from changing
     xlim = ax.get_xlim()
     ylim = ax.get_ylim()
     
