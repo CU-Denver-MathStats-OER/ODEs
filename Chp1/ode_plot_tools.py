@@ -176,7 +176,7 @@ def plot_euler(t, x, diffeq, t_0, x_0, dt, n=None, ax=None, clear=False):
     # Plot approx
     if n is None:
         n = int(t[-1]/dt)
-    tt2 = np.linspace(t_0, t[-1], n+1)
+    tt2 = np.linspace(t_0, n*dt, n+1)
     ax.plot(tt2, forward_euler(diffeq, dt, n, t[0], x_0), ':', 
              marker='s')
     ax.set_ylim(ylim)
