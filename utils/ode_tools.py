@@ -1,8 +1,10 @@
-## Python file contains code for generating slope fields and interactive plots
+## Python module contains code for visualizations throughout textbook
 
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
+
+## Chapter 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def slope_field(t, x, diffeq, 
                 units = 'xy', 
@@ -187,3 +189,75 @@ def plot_dt(t, x, diffeq, t0, x0, dt, nsteps, color = 'blue', ax=None, npts=100,
     ax.set_xlim(xlim)
     plt.show()
     return ax
+
+
+## Chapter 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+## Chapter 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+def phase_portrait(v1, v2, diffeq,
+                  color='black',
+                  ax=None,
+                  **args):
+    if (ax is None):
+        fig, ax = plt.subplots(figsize=(12,8))  # Troy edit to make plot bigger
+    # if scale is not None:
+    #     scale = 1/scale
+    V1, V2 = np.meshgrid(v1, v2)  # create rectangular grid with points
+    t = 0
+
+    u, w = np.zeros(V1.shape), np.zeros(V2.shape)
+    
+    NI, NJ = V1.shape
+
+    for i in range(NI):
+        for j in range(NJ):
+            xcoord = V1[i, j]
+            ycoord = V2[i, j]
+            vprime = diffeq([xcoord, ycoord], t)
+            u[i,j] = vprime[0]
+            w[i,j] = vprime[1]
+    
+    # Troy edited the next two lines of code to make arrows same size everywhere
+    r = np.power(np.add(np.power(u,2), np.power(w,2)),0.5)
+    r = np.where(r==0, 1, r) 
+    
+    Q = ax.quiver(V1, V2, u/r, w/r,  # TROY EDIT using ax instead of plt to fix last code cell output
+                  color=color,
+                  **args)
+    
+    return ax
+
+def plot_phase_sol(v1, v2, diffeq, t, v1_0, v2_0,
+                  color='black',
+                  ax=None,
+                  clear=False,
+                  markersize=15,
+                  linewidth = 4,
+                  add_phase_plane = True,
+                  **args):
+    
+    if (ax is None):
+        fig, ax = plt.subplots(figsize=(12,8))
+    if clear:
+        ax.cla()
+    
+    if add_phase_plane:
+        phase_portrait(v1, v2, diffeq, ax=ax, **args)
+    
+    # Get axis limits to fix plotting window
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
+    
+    vs = odeint(diffeq, [v1_0, v2_0], t)
+    ax.plot(vs[:,0], vs[:,1], linewidth=linewidth)  # path  TROY EDIT to linewidth
+    ax.plot([vs[0,0]], [vs[0,1]], 'ro', markersize=markersize, alpha=0.5)  # start  TROY EDIT to markersize and alpha
+    ax.plot([vs[-1,0]], [vs[-1,1]], 'bs', markersize=markersize, alpha=0.5)  # end  TROY EDIT to markersize and alpha
+    
+    # Set axis limits
+    ax.set_xlim(xlim)
+    ax.set_ylim(ylim)
+    
+    return ax
+        
