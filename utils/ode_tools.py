@@ -180,7 +180,7 @@ def plot_dt(t, x, diffeq, t0, x0, dt, nsteps, color = 'blue', ax=None, npts=100,
     # Plot vector
     # scale=1/dt makes the vector 
     tt = np.linspace(t0, t0 + dt*(nsteps-1), nsteps)
-    xx = euler_method(diffeq, dt, nsteps, t[0], x0)
+    xx = euler_method(diffeq, t[0], x0, dt, nsteps)
     
     for i in range(0, nsteps):
         slope_field(tt[i], xx[i], diffeq, color = color, scale=dt, ax = ax)  
