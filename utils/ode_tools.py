@@ -197,60 +197,118 @@ def plot_dt(t, x, diffeq, t0, x0, dt, nsteps, color = 'blue', ax=None, npts=100,
 ## Chapter 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def phase_portrait(v1, v2, diffeq,
+                  *params,
                   color='black',
-                  ax=None,
-                  **args):
+                  ax=None):
+    """Plots phase portrait given a dynamical system
+    
+    Given a dynamical system of the form dXdt=f(X,t,...), plot the phase portrait of the system.
+
+    Parameters
+    ----------
+    
+    v1 : array
+        The range of the first variable
+        
+    v2 : array
+        The range of the second variable
+    
+    diffeq : function
+        The function dXdt = f(X,t,...)
+
+    params:
+        System parameters to be passed to diffeq
+    
+    ax : pyplot plotting axes
+        Optional existing axis to pass to function
+
+    Returns
+    -------
+    out : ax
+        plotting axis with formatted quiver plot
+    """
     if (ax is None):
         fig, ax = plt.subplots(figsize=(12,8))  # Troy edit to make plot bigger
-    # if scale is not None:
-    #     scale = 1/scale
+
     V1, V2 = np.meshgrid(v1, v2)  # create rectangular grid with points
-    t = 0
-
-    u, w = np.zeros(V1.shape), np.zeros(V2.shape)
-    
+    t = 0 # start time
+    u, w = np.zeros(V1.shape), np.zeros(V2.shape) # initiate values for quiver arrows
     NI, NJ = V1.shape
-
+    
     for i in range(NI):
         for j in range(NJ):
             xcoord = V1[i, j]
             ycoord = V2[i, j]
-            vprime = diffeq([xcoord, ycoord], t)
+            vprime = diffeq([xcoord, ycoord], t, *params)
             u[i,j] = vprime[0]
             w[i,j] = vprime[1]
     
-    # Troy edited the next two lines of code to make arrows same size everywhere
     r = np.power(np.add(np.power(u,2), np.power(w,2)),0.5)
     r = np.where(r==0, 1, r) 
     
     Q = ax.quiver(V1, V2, u/r, w/r,  # TROY EDIT using ax instead of plt to fix last code cell output
-                  color=color,
-                  **args)
+                  color=color)
     
     return ax
 
 def plot_phase_sol(v1, v2, diffeq, t, v1_0, v2_0,
+                  *params,
                   color='black',
                   ax=None,
                   clear=False,
                   markersize=15,
                   linewidth = 4,
-                  add_phase_plane = True,
-                  **args):
+                  add_phase_plane = True):
     
+    """Plots phase portrait with solution given a dynamical system and initial conditions
+    
+    Given a dynamical system of the form dXdt=f(X,t,...), and additionally two initial conditions, plot the phase portrait of the system and solution.
+
+    Parameters
+    ----------
+    
+    v1 : array
+        The range of the first variable
+        
+    v2 : array
+        The range of the second variable
+    
+    diffeq : function
+        The function dXdt = f(X,t,...)
+
+    params: Additional arguments
+        System parameters to be passed to diffeq
+    
+    t: array
+        The time range to visualize the solution
+        
+    v1_0: float
+        Initial condition for v1 variable
+        
+    v2_0: float
+        Initial condition for v2 variable
+    
+    ax : pyplot plotting axes
+        Optional existing axis to pass to function
+
+    Returns
+    -------
+    out : ax
+        plotting axis with formatted quiver plot
+    """
     if (ax is None):
         fig, ax = plt.subplots(figsize=(12,8))
     if clear:
         ax.cla()
     
     if add_phase_plane:
-        phase_portrait(v1, v2, diffeq, ax=ax, **args)
+        phase_portrait(v1, v2, diffeq, ax=ax, *params)
     
     # Get axis limits to fix plotting window
     xlim = ax.get_xlim()
     ylim = ax.get_ylim()
     
-    vs = odeint(diffeq, [v1_0, v2_0], t)
+    vs = odeint(diffeq, [v1_0, v2_0], t, args=(params))
     ax.plot(vs[:,0], vs[:,1], linewidth=linewidth)  # path  TROY EDIT to linewidth
     ax.plot([vs[0,0]], [vs[0,1]], 'ro', markersize=markersize, alpha=0.5)  # start  TROY EDIT to markersize and alpha
     ax.plot([vs[-1,0]], [vs[-1,1]], 'bs', markersize=markersize, alpha=0.5)  # end  TROY EDIT to markersize and alpha
@@ -260,4 +318,3 @@ def plot_phase_sol(v1, v2, diffeq, t, v1_0, v2_0,
     ax.set_ylim(ylim)
     
     return ax
-        
