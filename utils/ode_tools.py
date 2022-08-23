@@ -62,11 +62,11 @@ def slope_field(t, x, diffeq,
     return ax
 
 
-def plot_sol(t, x, diffeq, x0, ax = None, npts=100, clear=False):
+def plot_sol(t, x, diffeq, t0, x0, ax = None, npts=100, clear=False):
     """Plot Slope field and estimated solution given initial conidtion
     
     Given an ode of the form: dx/dt = f(t, x), plot a slope field (aka direction field) for given t and x arrays. 
-    Given an initial condition x0, plot a solution line estimated with `odeint`.
+    Given an initial condition x(t0) = 0, plot a solution line estimated with `odeint`.
     Extra arguments are passed to matplotlib.pyplot.quiver
 
     Parameters
@@ -81,8 +81,11 @@ def plot_sol(t, x, diffeq, x0, ax = None, npts=100, clear=False):
     diffeq : function
         The function f(t,x) = dx/dt
 
+    t0 : float
+        Initial time
+
     x0 : float
-        Initial condition at t[0]
+        Initial condition at t0
         
     ax : pyplot plotting axes
     
@@ -104,7 +107,7 @@ def plot_sol(t, x, diffeq, x0, ax = None, npts=100, clear=False):
     slope_field(t, x, diffeq, color='grey', ax = ax)
     
     # Plot solution
-    tt = np.linspace(t.min(),t.max(),100)
+    tt = np.linspace(t0,t.max(),100)
     sol = odeint(diffeq, x0, tt, tfirst=True)
     
     xlim = ax.get_xlim()
