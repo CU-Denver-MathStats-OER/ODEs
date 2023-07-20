@@ -6,3 +6,7 @@
 **/.ipynb_checkpoints/**
 *.out
 __pycache__/
+
+# quarto files
+/.quarto/
+/_book/
