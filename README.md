@@ -19,7 +19,7 @@ This material serves as the textbook for the "MATH 3200: Elementary Differential
 
 - [04: Euler's Method](https://githubtocolab.com/CU-Denver-MathStats-OER/ODEs/blob/main/Chp1/04-Eulers-Method.ipynb)
 
-- [05: Separable Differential Equations](https://githubtocolab.com/CU-Denver-MathStats-OER/ODEs/blob/main/Chp1/05-Separable-Differential-Equations.ipynb)
+- [05: Separable Differential Equations](https://githubtocolab.com/CU-Denver-MathStats-OER/ODEs/blob/main/Chp1/05-Separable-Diff-Eqs.ipynb)
 
 - [06: Integrating Factors](https://githubtocolab.com/CU-Denver-MathStats-OER/ODEs/blob/main/Chp1/06-Integrating-Factors.ipynb)
 
